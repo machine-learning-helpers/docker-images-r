@@ -14,7 +14,10 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL $LANG
 ENV R_BASE_VERSION 4.0.2
 
-RUN apt-get -y install \
+USER root
+
+RUN apt-get update && \
+    apt-get -y install \
      libssh2-1-dev libssl1.1 \
      libc6-dev liblzma-dev \
      libcurl4-gnutls-dev \

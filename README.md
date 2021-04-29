@@ -70,7 +70,7 @@ $ cd ~/dev/showcase
 $ git clone https://github.com/machine-learning-helpers/docker-images-r.git docker-images-r
 $ cd docker-images-r
 $ vi <linux-distrib>/Dockerfile
-$ docker build -t artificialintelligence/r-base/<linux-distrib>:beta <linux-distrib>/
+$ docker build -t artificialintelligence/r-base:<linux-distrib> <linux-distrib>/
 $ docker run --rm -v ~/.ssh/id_rsa:/home/build/.ssh/id_rsa -v ~/.ssh/id_rsa.pub:/home/build/.ssh/id_rsa.pub -it artificialintelligence/r-base:<linux-distrib>
 [build@9..d]$ exit
 $ docker push artificialintelligence/r-base:<linux-distrib>
