@@ -17,15 +17,16 @@ ENV R_BASE_VERSION 4.0.2
 USER root
 
 RUN apt-get update && \
-    apt-get -y install \
-     libssh2-1-dev libssl1.1 \
+	apt-get -y install \
+ 	 libssh2-1-dev libssl1.1 \
      libc6-dev liblzma-dev \
      libcurl4-gnutls-dev \
      libpq-dev postgresql-client \
      python3-software-properties \
      pandoc pandoc-citeproc libcairo2-dev \
      gsfonts \
-     libxml2-dev libxt-dev
+	 libxml2-dev libxt-dev \
+	 libaio1 libaio-dev
 
 # Java
 RUN apt-get -y install openjdk-11-jdk
@@ -68,7 +69,7 @@ RUN apt-get update && \
 RUN R CMD javareconf
 
 # A few R packages
-RUN R -e "install.packages(c('BBmisc','bookdown','devtools','DBI','forecast','futile.logger','ISOweek','lubridate','mgsub','mosum','readxl','rJava','robfilter','stringr','tictoc','testthat','tidyverse','yaml'), repos='https://cloud.r-project.org/', dependencies = TRUE)"
+RUN R -e "install.packages(c('BBmisc','bookdown','devtools','DBI','RPostgres','forecast','futile.logger','ISOweek','lubridate','mgsub','mosum','readxl','rJava','robfilter','stringr','tictoc','testthat','tidyverse','yaml'), repos='https://cloud.r-project.org/', dependencies = TRUE)"
 
 # Entry point
 CMD ["/bin/bash"]
