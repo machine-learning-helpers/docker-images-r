@@ -1,5 +1,5 @@
 #
-# File: https://github.com/machine-learning-helpers/docker-images-r/tree/master/ubuntu2004
+# File: https://github.com/machine-learning-helpers/docker-images-r/tree/master/r-base
 #
 FROM docker.io/cpppythondevelopment/base:ubuntu2004
 

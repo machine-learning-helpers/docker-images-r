@@ -1,7 +1,7 @@
 Docker images to support Machine Learning (ML) with R
 =====================================================
 
-[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/artificialintelligence/r)](https://hub.docker.com/repository/docker/artificialintelligence/r-base/general)
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/artificialintelligence/r-base)](https://hub.docker.com/repository/docker/artificialintelligence/r-base/general)
 
 # Introduction
 [That project](https://github.com/machine-learning-helpers/docker-images-r)
@@ -10,12 +10,16 @@ public Docker Cloud site](https://cloud.docker.com/u/bigdatadevelopment/reposito
 Those Docker images are intended to bring Linux-based ready-to-use environment
 for R Machine Learning (ML) engineers.
 
-The R container images are based on the
-[general purpose C++ images](https://github.com/cpp-projects-showcase/docker-images).
+There is an on-going work to base the images on the
+[Rocker project](https://github.com/rocker-org/rocker-versioned2).
+For historical reasons, the
+[general purpose C++ images](https://github.com/cpp-projects-showcase/docker-images)
+may still be used though.
 
-The only supported Linux distribution is, so far:
-- [Ubuntu 20.04 LTS (Focal Fossal)](http://releases.ubuntu.com/20.04/)
-Other Linux distributions may be supported in the future.
+The only supported Linux distribution is, so far is
+[Ubuntu 20.04 LTS (Focal Fossal)](http://releases.ubuntu.com/20.04/),
+as it is the one used by the Rocker project (and one of the most
+popular among the data scientists).
 
 Every time some changes are committed on the [project's GitHub
 repository](https://github.com/machine-learning-helpers/docker-images-r),
@@ -36,15 +40,17 @@ Docker Cloud then rebuilds the corresponding Docker images, which become
 available for every one to use.
 
 # Images on Docker Cloud
+* [Docker Cloud dashboard for Rocker base image (`r-ver`)](https://hub.docker.com/r/rocker/r-ver)
+* [Docker Cloud dashboard for Rocker RShiny image (`shiny`)](https://hub.docker.com/r/rocker/shiny)
 * [Docker Cloud dashboard for R images](https://cloud.docker.com/u/artificialintelligence/repository/docker/artificialintelligence/r-base)
 * [Docker Cloud dashboard for C++ images](https://cloud.docker.com/u/cpppythondevelopment/repository/docker/cpppythondevelopment/base)
 
 # Using the pre-built development images
-* Start the Docker container featuring the target Linux distribution
-  (`<linux-distrib>` may be `ubuntu2004`):
+* Start the Docker container featuring the base image or the RShiny one
+  (`<type> is either `base` or `shiny`).
 ```bash
-$ docker pull artificialintelligence/r-base:<linux-distrib>
-$ docker run --rm -v ~/.ssh/id_rsa:/home/build/.ssh/id_rsa -v ~/.ssh/id_rsa.pub:/home/build/.ssh/id_rsa.pub -it artificialintelligence/r-base:<linux-distrib>
+$ docker pull artificialintelligence/r-base:<type>
+$ docker run --rm -v ~/.ssh/id_rsa:/home/build/.ssh/id_rsa -v ~/.ssh/id_rsa.pub:/home/build/.ssh/id_rsa.pub -it artificialintelligence/r-base:<type>
 [build@5..0 dev]$ 
 ```
 
@@ -62,25 +68,24 @@ $ docker run --rm -v ~/.ssh/id_rsa:/home/build/.ssh/id_rsa -v ~/.ssh/id_rsa.pub:
 
 # Customize a Docker Image
 The images may be customized, and pushed to Docker Cloud;
-`<linux-distrib>` may be `ubuntu2004`:
+`<type>` may be `base` or `shiny`:
 
 ```bash
 $ mkdir -p ~/dev/showcase
 $ cd ~/dev/showcase
 $ git clone https://github.com/machine-learning-helpers/docker-images-r.git docker-images-r
 $ cd docker-images-r
-$ vi <linux-distrib>/Dockerfile
-$ docker build -t artificialintelligence/r-base:<linux-distrib> <linux-distrib>/
-$ docker run --rm -v ~/.ssh/id_rsa:/home/build/.ssh/id_rsa -v ~/.ssh/id_rsa.pub:/home/build/.ssh/id_rsa.pub -it artificialintelligence/r-base:<linux-distrib>
+$ vi <type>/Dockerfile
+$ docker build -t artificialintelligence/r-base:<type> <type>/
+$ docker run --rm -v ~/.ssh/id_rsa:/home/build/.ssh/id_rsa -v ~/.ssh/id_rsa.pub:/home/build/.ssh/id_rsa.pub -it artificialintelligence/r-base:<type>
 [build@9..d]$ exit
-$ docker push artificialintelligence/r-base:<linux-distrib>
+$ docker push artificialintelligence/r-base:<type>
 ```
 
 # TODO
 For any of the following features, an issue may be open
 [on GitHub](https://github.com/machine-learning-helpers/docker-images-r/issues):
-1. Support other Linux distributions, for instance Ubuntu 18.04 LTS,
-   Debian 10 or CentOS 8
-2. Automate regular rebuilds (_e.g._, once a month for CentOS or Ubuntu)
+1. Support other image types, for instance Verse or RStudio
+2. Automate regular rebuilds (_e.g._, once a month for new releases of R)
 
 
