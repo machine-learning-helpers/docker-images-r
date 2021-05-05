@@ -14,6 +14,8 @@ FROM docker.io/rocker/shiny:latest
 
 LABEL authors="Denis Arnaud <denis.arnaud_github at m4x dot org>"
 
+# Environment
+ENV container docker
 ENV ORCL_CLT_VER_MAJOR "21_1"
 ENV ORCL_CLT_VER "211000"
 ENV ORCL_CLT_VER_FULL "21.1.0.0.0"
