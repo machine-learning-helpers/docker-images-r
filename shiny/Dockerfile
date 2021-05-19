@@ -44,6 +44,7 @@ RUN apt-get -y install \
 	libssh2-1-dev libssl1.1 \
 	libc6-dev liblzma-dev \
 	libcurl4-gnutls-dev \
+        jq \
 	libpq-dev postgresql-client \
 	pandoc pandoc-citeproc libcairo2-dev \
 	gsfonts \
