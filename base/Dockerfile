@@ -31,7 +31,7 @@ RUN echo "Europe/Berlin" > /etc/timezone && \
 	dpkg-reconfigure -f noninteractive tzdata
 
 # Install a few C++ and Python packages
-RUN apt-get -y install \
+RUN apt-get -qq update && apt-get -y install \
 	less htop screen \
 	git keychain gawk \
 	bash-completion vim-nox emacs-nox keyutils ftp \
