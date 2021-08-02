@@ -72,35 +72,35 @@ RUN R CMD javareconf
 # Oracle instant clients
 RUN apt-get update && apt-get -y install libaio1 libaio-dev
 RUN mkdir -p /opt/oracle/archives && \
-	wget https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-basic-linux.x64-${ORCL_CLT_VER_FULL}.zip -O /opt/oracle/archives/instantclient-basic-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
-	wget https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-sqlplus-linux.x64-${ORCL_CLT_VER_FULL}.zip -O /opt/oracle/archives/instantclient-sqlplus-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
-	wget https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-sdk-linux.x64-${ORCL_CLT_VER_FULL}.zip -O /opt/oracle/archives/instantclient-sdk-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
-	wget https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-jdbc-linux.x64-${ORCL_CLT_VER_FULL}.zip -O /opt/oracle/archives/instantclient-jdbc-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
-    wget https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-odbc-linux.x64-${ORCL_CLT_VER_FULL}.zip -O /opt/oracle/archives/instantclient-odbc-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
-	wget https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-tools-linux.x64-${ORCL_CLT_VER_FULL}.zip -O /opt/oracle/archives/instantclient-tools-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
-    unzip /opt/oracle/archives/instantclient-basic-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle && \
+    curl https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-basic-linux.x64-${ORCL_CLT_VER_FULL}.zip -o /opt/oracle/archives/instantclient-basic-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
+    curl -L -s https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-sqlplus-linux.x64-${ORCL_CLT_VER_FULL}.zip -o /opt/oracle/archives/instantclient-sqlplus-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
+    curl -L -s https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-sdk-linux.x64-${ORCL_CLT_VER_FULL}.zip -o /opt/oracle/archives/instantclient-sdk-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
+    curl -L -s https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-jdbc-linux.x64-${ORCL_CLT_VER_FULL}.zip -o /opt/oracle/archives/instantclient-jdbc-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
+    curl -L -s https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-odbc-linux.x64-${ORCL_CLT_VER_FULL}.zip -o /opt/oracle/archives/instantclient-odbc-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
+    curl -L -s https://download.oracle.com/otn_software/linux/instantclient/${ORCL_CLT_VER}/instantclient-tools-linux.x64-${ORCL_CLT_VER_FULL}.zip -o /opt/oracle/archives/instantclient-tools-linux.x64-${ORCL_CLT_VER_FULL}.zip && \
+    unzip -q /opt/oracle/archives/instantclient-basic-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle && \
     unzip -q /opt/oracle/archives/instantclient-sqlplus-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle && \
-	unzip -q /opt/oracle/archives/instantclient-sdk-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle && \
-	unzip -q /opt/oracle/archives/instantclient-jdbc-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle && \
+    unzip -q /opt/oracle/archives/instantclient-sdk-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle && \
+    unzip -q /opt/oracle/archives/instantclient-jdbc-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle && \
     unzip -q /opt/oracle/archives/instantclient-odbc-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle && \
     unzip -q /opt/oracle/archives/instantclient-tools-linux.x64-${ORCL_CLT_VER_FULL}.zip -d /opt/oracle
 # For the root user
 RUN echo "" >> /root/.bashrc && \
-	echo "# Oracle Instant clients: ${ORCL_CLT_VER_FULL}" >> /root/.bashrc && \
-	echo "export PATH=\"\${PATH}:/opt/oracle/instantclient_${ORCL_CLT_VER_MAJOR}\"" >> /root/.bashrc && \
+    echo "# Oracle Instant clients: ${ORCL_CLT_VER_FULL}" >> /root/.bashrc && \
+    echo "export PATH=\"\${PATH}:/opt/oracle/instantclient_${ORCL_CLT_VER_MAJOR}\"" >> /root/.bashrc && \
     echo "export LD_LIBRARY_PATH=\"\${LD_LIBRARY_PATH}:/opt/oracle/instantclient_${ORCL_CLT_VER_MAJOR}\"" >> /root/.bashrc
 
 # AWS CLI
 WORKDIR /root
 RUN mkdir -p /root/awscliv2 && \
-	wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O /root/awscliv2/awscliv2.zip
+    curl -L -s https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o /root/awscliv2/awscliv2.zip
 WORKDIR /root/awscliv2
 RUN	unzip -q awscliv2.zip && rm -f awscliv2.zip && ./aws/install
 WORKDIR /root
 RUN	rm -rf /root/awscliv2
 
 # A few R public packages for RShiny applications
-RUN R -e "install.packages(c('devtools','assertr','BBmisc','DBI','DT','feather','forcats','futile.logger','lubridate','misc3d','mosum','openxlsx','plot3D','rJava','shinydashboard','stringr','testthat','tidyverse'), repos='https://cloud.r-project.org/', dependencies = TRUE)"
+RUN R -e "install.packages(c('devtools','assertr','BBmisc','covr','DBI','DT','feather','forcats','futile.logger','janitor','knitr','lubridate','magrittr','misc3d','mosum','openxlsx','plot3D','rJava','rmarkdown','shinydashboard','stringr','stringi','testthat','tidyverse','testthat'), repos='https://cloud.r-project.org/', dependencies = TRUE)"
 
 # A few convenient aliases
 RUN echo "alias dir='ls -laFh --color'" >> /root/.bashrc
